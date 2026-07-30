@@ -1,0 +1,23 @@
+# Secrets. Broad glob: .env.local / .env.production must not slip through.
+.env*
+!.env.example
+
+node_modules/
+web/node_modules/
+
+# Runtime state
+server/data/
+*.db
+*.db-*
+
+# Build output
+web/dist/
+.vite/
+*.tsbuildinfo
+
+# Large vendored binaries, fetched at setup
+web/public/mediapipe/
+
+.DS_Store
+*.log
+.claude/

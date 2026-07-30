@@ -1,0 +1,182 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   OPS THEME — "top secret" retro terminal skin for every non-nexus view.
+   Pure override layer on theme.css primitives; applied via .ops-theme on the
+   shell only when view !== 'nexus', so the particle-brain home never collides.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.ops-theme {
+  --ops-green: #33ff88;
+  --ops-green-dim: rgba(51, 255, 136, 0.35);
+  --ops-green-faint: rgba(51, 255, 136, 0.12);
+  --ops-red: #ff3b4d;
+  --ops-red-dim: rgba(255, 59, 77, 0.35);
+  --ops-panel: rgba(4, 14, 9, 0.72);
+  background: #020604;
+}
+
+/* ── panel primitive: hard-edged classified file with corner brackets ── */
+.ops-theme .glass,
+.ops-theme .section.glass {
+  background: var(--ops-panel);
+  border: 1px solid var(--ops-green-dim);
+  border-radius: 2px;
+  backdrop-filter: none;
+  position: relative;
+}
+.ops-theme .section.glass::before,
+.ops-theme .section.glass::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+.ops-theme .section.glass::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--ops-green);
+  border-left: 2px solid var(--ops-green);
+}
+.ops-theme .section.glass::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--ops-green);
+  border-right: 2px solid var(--ops-green);
+}
+.ops-theme .section h4::before {
+  background: linear-gradient(90deg, var(--ops-green), transparent);
+}
+.ops-theme .section h4 { color: var(--ops-green); }
+
+/* ── buttons: transparent terminal keys ── */
+.ops-theme .btn {
+  background: transparent;
+  color: var(--ops-green);
+  border: 1px solid var(--ops-green);
+  border-radius: 2px;
+  text-shadow: 0 0 6px var(--ops-green-dim);
+  box-shadow: none;
+}
+.ops-theme .btn:hover:not(:disabled) {
+  background: var(--ops-green-faint);
+  box-shadow: 0 0 16px var(--ops-green-dim);
+}
+.ops-theme .btn:disabled { opacity: 0.4; }
+.ops-theme .ghost-btn,
+.ops-theme .rh-chip {
+  border-radius: 2px;
+  border-color: var(--ops-green-dim);
+  color: var(--ops-green);
+  background: transparent;
+}
+.ops-theme .ghost-btn:hover,
+.ops-theme .rh-chip:hover { background: var(--ops-green-faint); }
+.ops-theme .rh-chip.active { border-color: var(--ops-green); background: var(--ops-green-faint); }
+
+/* ── stat tiles: readouts ── */
+.ops-theme .stat {
+  border-radius: 2px;
+  border: 1px solid var(--ops-green-dim);
+  background: linear-gradient(180deg, rgba(3, 20, 10, 0.8), rgba(2, 8, 5, 0.7));
+}
+.ops-theme .stat .label { color: rgba(51, 255, 136, 0.55); }
+.ops-theme .stat .val { color: var(--ops-green); text-shadow: 0 0 8px var(--ops-green-dim); }
+.ops-theme .stat .val.neg { color: var(--ops-red); text-shadow: 0 0 8px var(--ops-red-dim); }
+
+/* ── pills / status text ── */
+.ops-theme .pill,
+.ops-theme .status-text { border-radius: 2px; }
+.ops-theme .status-text.s-idle,
+.ops-theme .status-text.s-done,
+.ops-theme .pill.idle,
+.ops-theme .pill.done { color: var(--ops-green); }
+.ops-theme .status-text.s-error,
+.ops-theme .pill.error { color: var(--ops-red); }
+
+/* ── alert rows (CommandRoom ideas board) ── */
+.ops-theme .idea-line.bad {
+  border-left: 3px solid var(--ops-red);
+  background: rgba(255, 59, 77, 0.07);
+  padding-left: 8px;
+  color: var(--ops-red);
+}
+.ops-theme .idea-line.ok { color: var(--ops-green); }
+
+/* ── avatar orbs ── */
+.ops-theme .avatar {
+  border-color: var(--ops-green) !important;
+  box-shadow: 0 0 20px var(--ops-green-dim), inset 0 0 14px var(--ops-green-faint);
+  border-radius: 50%;
+}
+
+/* ── command bar joins the ops look ── */
+.ops-theme .cmdbar {
+  background: rgba(2, 10, 6, 0.9);
+  border-bottom: 1px solid var(--ops-green-dim);
+}
+.ops-theme .cmd-stat { color: rgba(51, 255, 136, 0.75); }
+
+/* ── CRT overlay: scanlines + vignette, never blocks input ── */
+.ops-theme .page { position: relative; }
+.ops-theme .page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
+    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.5) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* ── classified file strip ── */
+.ops-file-strip {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--ops-green);
+  border: 1px solid var(--ops-green-dim);
+  border-radius: 2px;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  background: rgba(3, 16, 9, 0.6);
+}
+.ops-typed {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: ops-type 1.1s steps(40, end);
+}
+@keyframes ops-type {
+  from { max-width: 0; }
+  to { max-width: 100%; }
+}
+.ops-blink { animation: ops-blink 1.4s step-end infinite; }
+@keyframes ops-blink { 50% { opacity: 0.25; } }
+
+/* ── TOP SECRET stamp ── */
+.ops-stamp {
+  font-family: var(--sans);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--ops-red);
+  border: 3px double var(--ops-red);
+  padding: 2px 10px;
+  transform: rotate(-6deg);
+  opacity: 0.55;
+  position: absolute;
+  top: 6px;
+  right: 16px;
+  pointer-events: none;
+}
+.ops-theme .ap-head { position: relative; }
+
+/* ── chat + terminal recolors ── */
+.ops-theme .core { border-color: var(--ops-green-dim); border-radius: 2px; }
+.ops-theme .core-title { color: var(--ops-green); }
+.ops-theme .terminal { border-color: var(--ops-green-dim); border-radius: 2px; }
+.ops-theme .note { color: rgba(51, 255, 136, 0.6); }
+.ops-theme .history-banner { border-color: var(--ops-green-dim); border-radius: 2px; }

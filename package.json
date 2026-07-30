@@ -1,0 +1,29 @@
+{
+  "name": "autonomous-os",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Autonomous OS — the orchestrator control center for your local automation agents.",
+  "scripts": {
+    "dev": "concurrently -n SERVER,WEB -c cyan,magenta \"npm run dev:server\" \"npm run dev:web\"",
+    "dev:server": "node --env-file=.env --watch server/index.js",
+    "dev:web": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "node --env-file=.env server/index.js",
+    "serve": "npm run build && npm run start",
+    "install:all": "npm install && npm --prefix web install",
+    "build:web": "npm --prefix web run build"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ffmpeg-static": "^5.3.0",
+    "imapflow": "^1.0.171",
+    "mailparser": "^3.7.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^9.0.3",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
